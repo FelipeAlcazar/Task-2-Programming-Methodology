@@ -60,10 +60,15 @@ public class App
         if(colorsEqual){
 
         }else if(!colorsEqual){
+            System.out.println();
+            System.out.println("------NEW PARTITION------");
             Short[][] matrix1 = PartitionMatrix(matrix, 0, 0, matrix.length/2, matrix.length/2);
             Short[][] matrix2 = PartitionMatrix(matrix, 0, matrix.length/2, matrix.length/2, matrix.length);
             Short[][] matrix3 = PartitionMatrix(matrix, matrix.length/2, 0, matrix.length, matrix.length/2);
             Short[][] matrix4 = PartitionMatrix(matrix, matrix.length/2, matrix.length/2, matrix.length, matrix.length);
+            System.out.println("------PARTITION ENDED------");
+            System.out.println();
+
             quadtree(matrix1);
             quadtree(matrix2);
             quadtree(matrix3);
@@ -87,6 +92,8 @@ public class App
             matrixColumns=0;
             matrixRows++;
         }
+
+        
         return res;
     }
 
@@ -94,7 +101,6 @@ public class App
         boolean colorsAreEqual=true;
         int firstColor=matrix[0][0];
 
-        printMatrix(matrix);
         for (int i=0; i<matrix.length; i++){
             for(int j=0; j<matrix[i].length; j++){
                 if(matrix[i][j]!=firstColor){
