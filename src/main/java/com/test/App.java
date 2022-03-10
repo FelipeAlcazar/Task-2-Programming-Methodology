@@ -2,6 +2,7 @@ package com.test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Vector;
 
 
@@ -11,33 +12,25 @@ import java.util.Vector;
  */
 public class App 
 {
-    public static void main(String[] args) throws IOException
+    static GenTree tree=new GenTree<>();
+    public static void main(String[] args) throws Exception
     {
-        /** 
-         GenTree tree=new GenTree<>();
-        NodeGenTree root=new NodeGenTree<>("my root");
-        NodeGenTree child1=new NodeGenTree<>("hijoRoot1");
-        NodeGenTree child2=new NodeGenTree<>("hijoDelHijo1");
-        NodeGenTree root2=new NodeGenTree<>("Anotherroot");
-        tree.addRoot(root);
-        tree.addChild(root, child1);
-        tree.addChild(child1, child2);
-        tree.addChild(root, root2);
-        System.out.print(tree.toString());
-       */
-
        Short matrix[][]={
-           {1,1,1,1,0,0,1,1},
-           {1,1,1,1,0,0,1,1},
-           {1,1,0,0,0,0,1,1},
-           {1,1,0,0,0,0,1,1},
-           {0,0,0,0,0,0,1,1},
-           {0,0,0,0,1,1,1,1},
-           {1,1,1,1,1,1,1,1},
-           {1,1,1,1,1,1,1,1}
+           {'w','w','w','w','b','b','w','w'},
+           {'w','w','w','w','b','b','w','w'},
+           {'w','w','b','b','b','b','w','w'},
+           {'w','w','b','b','b','b','w','w'},
+           {'b','b','b','b','b','b','w','w'},
+           {'b','b','b','b','w','w','w','w'},
+           {'w','w','w','w','w','w','w','w'},
+           {'w','w','w','w','w','w','w','w'}
        };
 
+       NodeGenTree root=new NodeGenTree<>(Character.toString(matrix[0][0]));
+       tree.addRoot(root);
+
        /** 
+        * Example indexing
        //P1
        printMatrixIndexed(matrix, 0, 0, 4, 4);
        System.out.println();
@@ -50,16 +43,23 @@ public class App
        //P4
        printMatrixIndexed(matrix, 4, 4, 8, 8);
        */
-       quadtree(matrix);
+
+       //Example random matrix
+       //Short color1='w';
+       //Short color2='b';
+       //quadtree(generateRandomMatrix(8,8,color1,color2), root);
+       
+       quadtree(matrix, root);
+       System.out.print(tree.toString());
     }
        
 
 
-    public static void quadtree(Short[][] matrix) {
-        boolean colorsEqual = PartitionEqual(matrix);
-        if(colorsEqual){
-
-        }else if(!colorsEqual){
+    public static void quadtree(Short[][] matrix, NodeGenTree<String> root) {
+        int colorsEqual = PartitionEqual(matrix);
+        if(colorsEqual!=-1){
+            root.addChild(new NodeGenTree<>(Character.toString(colorsEqual)));
+        }else{
             System.out.println();
             System.out.println("------NEW PARTITION------");
             Short[][] matrix1 = PartitionMatrix(matrix, 0, 0, matrix.length/2, matrix.length/2);
@@ -69,13 +69,13 @@ public class App
             System.out.println("------PARTITION ENDED------");
             System.out.println();
 
-            quadtree(matrix1);
-            quadtree(matrix2);
-            quadtree(matrix3);
-            quadtree(matrix4);
+            quadtree(matrix1, root);
+            quadtree(matrix2, root);
+            quadtree(matrix3, root);
+            quadtree(matrix4, root);
         }
 
-
+        
     }
 
     public static Short[][] PartitionMatrix(Short[][] matrix, int rowIni, int columnIni, int rowEnd, int columnEnd) {
@@ -97,15 +97,14 @@ public class App
         return res;
     }
 
-    public static boolean PartitionEqual(Short[][] matrix) {
-        boolean colorsAreEqual=true;
-        int firstColor=matrix[0][0];
+    public static int PartitionEqual(Short[][] matrix) {
+        int colorsAreEqual=matrix[0][0];
 
         for (int i=0; i<matrix.length; i++){
             for(int j=0; j<matrix[i].length; j++){
-                if(matrix[i][j]!=firstColor){
-                    colorsAreEqual=false;
-                }
+                if(matrix[i][j]!=colorsAreEqual) 
+                    colorsAreEqual=-1;
+                
             }
         }
         return colorsAreEqual;
@@ -115,7 +114,7 @@ public class App
     public static void printMatrixIndexed(Short matrix[][], int rowIni, int columnIni, int rowEnd, int columnEnd){
         for (int i=rowIni; i<rowEnd; i++){
             for(int j=columnIni; j<columnEnd; j++){
-                System.out.print(matrix[i][j]);
+                System.out.print(Character.toString(matrix[i][j]));
             }
             System.out.println();
         }
@@ -130,5 +129,34 @@ public class App
             System.out.println();
         }
         System.out.println();
+    }
+
+    public static Short[][] generateRandomMatrix(int rows, int columns, Short color1, Short color2) throws Exception{
+        Short matrix[][]=new Short[rows][columns];
+
+        if(checkPowerOf2(rows,columns)){
+            Random r = new Random();
+            for (int i=0; i<matrix.length; i++){
+                for(int j=0; j<matrix[i].length; j++) 
+                    matrix[i][j]=r.nextBoolean() ? color1 : color2;
+            }
+        }else throw new Exception("The matrix size must be power of 2 or the values indicated are too big");   
+        return matrix;
+    }
+
+    public static boolean checkPowerOf2(int number1, int number2){
+        int [] powersOf2={1, 2, 4, 16, 32, 64, 128, 256, 512, 1024, 2048};
+        boolean number1PowerOf2=false;
+        boolean number2PowerOf2=false;
+
+        boolean res=false;
+        if(number1==number2) 
+            for (int i : powersOf2) {
+                if(number1==i) number1PowerOf2=true;
+                if(number2==i) number2PowerOf2=true;
+            }
+        if(number1PowerOf2 && number2PowerOf2) res=true;      
+
+        return res;
     }
 }
