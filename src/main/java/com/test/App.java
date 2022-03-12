@@ -26,7 +26,8 @@ public class App
            {'w','w','w','w','w','w','w','w'}
        };
 
-       NodeGenTree root=new NodeGenTree<>(Character.toString(matrix[0][0]));
+       String nodeStyle="O";
+       NodeGenTree root=new NodeGenTree<>(nodeStyle);
        tree.addRoot(root);
 
        /** 
@@ -49,33 +50,28 @@ public class App
        //Short color2='b';
        //quadtree(generateRandomMatrix(8,8,color1,color2), root);
        
-       quadtree(matrix, root);
-       System.out.print(tree.toString());
+       quadtree(matrix, root, -1, nodeStyle);
+
+       System.out.print("The resultant tree in one line is: \n"+tree.toString());
     }
        
 
 
-    public static void quadtree(Short[][] matrix, NodeGenTree<String> root) {
+    public static void quadtree(Short[][] matrix, NodeGenTree<String> root, int depth, String nodeStyle) {
+        NodeGenTree node=new NodeGenTree<>(nodeStyle);
         int colorsEqual = PartitionEqual(matrix);
         if(colorsEqual!=-1){
-            root.addChild(new NodeGenTree<>(Character.toString(colorsEqual)));
+            NodeGenTree newnode=new NodeGenTree<>(Character.toString(colorsEqual));
+            root.addChild(newnode);
+            newnode.printNode(depth);
         }else{
-            System.out.println();
-            System.out.println("------NEW PARTITION------");
-            Short[][] matrix1 = PartitionMatrix(matrix, 0, 0, matrix.length/2, matrix.length/2);
-            Short[][] matrix2 = PartitionMatrix(matrix, 0, matrix.length/2, matrix.length/2, matrix.length);
-            Short[][] matrix3 = PartitionMatrix(matrix, matrix.length/2, 0, matrix.length, matrix.length/2);
-            Short[][] matrix4 = PartitionMatrix(matrix, matrix.length/2, matrix.length/2, matrix.length, matrix.length);
-            System.out.println("------PARTITION ENDED------");
-            System.out.println();
-
-            quadtree(matrix1, root);
-            quadtree(matrix2, root);
-            quadtree(matrix3, root);
-            quadtree(matrix4, root);
+            root.printNode(depth);
+            root.addChild(node);
+            quadtree(PartitionMatrix(matrix, 0, 0, matrix.length/2, matrix.length/2), node, depth+1, nodeStyle);
+            quadtree(PartitionMatrix(matrix, 0, matrix.length/2, matrix.length/2, matrix.length), node, depth+1, nodeStyle);
+            quadtree(PartitionMatrix(matrix, matrix.length/2, 0, matrix.length, matrix.length/2), node, depth+1, nodeStyle);
+            quadtree(PartitionMatrix(matrix, matrix.length/2, matrix.length/2, matrix.length, matrix.length), node, depth+1, nodeStyle);
         }
-
-        
     }
 
     public static Short[][] PartitionMatrix(Short[][] matrix, int rowIni, int columnIni, int rowEnd, int columnEnd) {
@@ -83,7 +79,7 @@ public class App
         int matrixRows=0;
         int matrixColumns=0;
         
-        printMatrixIndexed(matrix, rowIni, columnIni, rowEnd, columnEnd);
+        //printMatrixIndexed(matrix, rowIni, columnIni, rowEnd, columnEnd);
         for (int i=rowIni; i<rowEnd; i++){
             for(int j=columnIni; j<columnEnd; j++){
                 res[matrixRows][matrixColumns]=matrix[i][j];

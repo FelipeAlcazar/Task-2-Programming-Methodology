@@ -102,4 +102,13 @@ public class NodeGenTree<T> {
     //Notice the cast to convert n (class Object) to class NodeGenTree
     return el.equals(((NodeGenTree<T>) n).getElement());
   }
+
+  public void printNode(int depth) {
+    while(depth>0){
+      System.out.print("  ");
+      depth--;
+    }
+    System.out.print(el.toString());
+    System.out.println();
+  }
 }
