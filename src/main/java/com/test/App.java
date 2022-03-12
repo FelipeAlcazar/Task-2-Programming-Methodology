@@ -141,7 +141,7 @@ public class App
     }
 
     public static boolean checkPowerOf2(int number1, int number2){
-        int [] powersOf2={1, 2, 4, 16, 32, 64, 128, 256, 512, 1024, 2048};
+        int [] powersOf2={1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048};
         boolean number1PowerOf2=false;
         boolean number2PowerOf2=false;
 
