@@ -1,5 +1,14 @@
 package com.test;
 
+/*********************************************************************
+*
+* Class Name: ArbolNArio
+*
+* Class description: In this class we create the tree.
+*
+***********************************************************************/
+
+
 public class ArbolNArio<T> {
 	private T valor;
 	
