@@ -5,14 +5,33 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
 
+/*********************************************************************
+*
+* Class Name: App
+* Author/s name:
+* Release/Creation date:
+* Class description: In this class we have the entire program, what we do is take a randon array with black and white values,
+* we have to make a quad tree method to compress the sized for representing the image in a tree.
+* 
+**********************************************************************
+*/
 
-/**
- * Hello world!
- *
- */
+
 public class App 
 {
     static GenTree tree=new GenTree<>();
+    
+    /*********************************************************************
+    *
+    * Method name: Main
+    *
+    * Description of the Method: In this method we introduce the type of array that we want.
+    *
+    * List of Checked Exceptions: 
+    * Exception: This Exception occurs when the main method doesn't work well.
+    *
+    *********************************************************************/
+    
     public static void main(String[] args) throws Exception
     {
        Short matrix[][]={
@@ -56,6 +75,24 @@ public class App
        System.out.println("The total time in nano seconds is: "+ time+" ns");
     }
       
+    /*********************************************************************
+    *
+    * Method name: checkTimeNano
+    *
+    * Description of the Method: This method calculates the time in nano second that the 
+    * quadtree method takes to execute.
+    *
+    * Calling arguments: 
+    *   Short[][], matrix, the matrix with the black and white values.
+    *   NodeGenTree<String>, root, the node of the tree.
+    *   int, depth, the depth of the node
+    *   String, nodeStyle, the type of the node.
+    *
+    * Return value: 
+    *   long, totaltime, the total time it takes for the process to run.
+    *
+    *********************************************************************/
+    
     public static long checkTimeNano (Short[][] matrix, NodeGenTree<String> root, int depth, String nodeStyle){
         long nano =System.nanoTime();
         quadtree(matrix, root, depth, nodeStyle);
@@ -64,7 +101,21 @@ public class App
         return totaltime;
     }
 
-
+    /*********************************************************************
+    *
+    * Method name: quadtree
+    *
+    * Description of the Method: in this method we check if the matrix has the same color and if not, 
+    * it is divided into four parts until it is the same color .
+    *
+    * Calling arguments: 
+    *   Short[][], matrix, the matrix with the black and white values.
+    *   NodeGenTree<String>, root, the node of the tree.
+    *   int, depth, the depth of the node
+    *   String, nodeStyle, the type of the node.
+    *
+    *********************************************************************/
+    
     public static void quadtree(Short[][] matrix, NodeGenTree<String> root, int depth, String nodeStyle) {
         NodeGenTree node=new NodeGenTree<>(nodeStyle);
         int colorsEqual = PartitionEqual(matrix);
@@ -82,6 +133,26 @@ public class App
         }
     }
 
+    /*********************************************************************
+    *
+    * Method name: PartitionMatrix
+    *
+    * Description of the Method: In this method we divided the matrix in four part.
+    *
+    * Calling arguments: A list of the calling arguments, their types, and
+    * brief explanations of what they do.
+    *
+    * Return value: Short[][], res, it's a matrix.
+    *
+    * Required Files:
+    *   Short[][], matrix, i'ts a two dimensional array.
+    *   int, rowIni, initial row.
+    *   int, columnIni, initial colum.
+    *   int, rowEnd, last row.
+    *   int, columnEnd, last column  . 
+    *
+    *********************************************************************/
+    
     public static Short[][] PartitionMatrix(Short[][] matrix, int rowIni, int columnIni, int rowEnd, int columnEnd) {
         Short[][] res=new Short[rowEnd-rowIni][columnEnd-columnIni];
         int matrixRows=0;
@@ -101,6 +172,20 @@ public class App
         return res;
     }
 
+    /*********************************************************************
+    *
+    * Method name: PartitionEqual
+    *
+    * Description of the Method: This method checks that they are the same color.
+    *
+    * Calling arguments:
+    *   Short[][], matrix, i'ts a two dimensional array.
+    *
+    * Return value: 
+    *   int, colorsAreEqual, says if the colors are equal.
+    *
+    *********************************************************************/
+    
     public static int PartitionEqual(Short[][] matrix) {
         int colorsAreEqual=matrix[0][0];
 
@@ -115,6 +200,21 @@ public class App
     }
 
 
+    /*********************************************************************
+    *
+    * Method name: printMatrixIndexed
+    *
+    * Description of the Method: This method print the index of the matrix.
+    *
+    * Calling arguments: 
+    *   Short[][], matrix, i'ts a two dimensional array.
+    *   int, rowIni, initial row.
+    *   int, columnIni, initial colum.
+    *   int, rowEnd, last row.
+    *   int, columnEnd, last column  . 
+    *
+    *********************************************************************/
+    
     public static void printMatrixIndexed(Short matrix[][], int rowIni, int columnIni, int rowEnd, int columnEnd){
         for (int i=rowIni; i<rowEnd; i++){
             for(int j=columnIni; j<columnEnd; j++){
@@ -125,6 +225,17 @@ public class App
         System.out.println();
     }
 
+    /*********************************************************************
+    *
+    * Method name: printMatrix
+    *
+    * Description of the Method: This method print the matrix.
+    *
+    * Calling arguments: 
+    *   Short[][], matrix, i'ts a two dimensional array. 
+    *
+    *********************************************************************/
+    
     public static void printMatrix(Short matrix[][]){
         for (int i=0; i<matrix.length; i++){
             for(int j=0; j<matrix[i].length; j++){
@@ -135,6 +246,26 @@ public class App
         System.out.println();
     }
 
+    /*********************************************************************
+    *
+    * Method name: generateRandomMatrix
+    *
+    * Description of the Method: This method create a random two-dimensional array with the values b(black), w(white).
+    *
+    * Calling arguments: 
+    *   int, rows, the number of rows that the matrix will have.
+    *   int, columns, the number of columns that the matrix will have.
+    *   Short, color1, white color (w).
+    *    Short, color2, black color (b).
+    *
+    * Return value: Short[][], matrix, the two dimensional array created in a random mode.
+    *
+    *
+    * List of Checked Exceptions:
+    *   Exception: This Exception occurs when the main method doesn't work well.
+    *
+    *********************************************************************/
+    
     public static Short[][] generateRandomMatrix(int rows, int columns, Short color1, Short color2) throws Exception{
         Short matrix[][]=new Short[rows][columns];
 
@@ -148,6 +279,21 @@ public class App
         return matrix;
     }
 
+    /*********************************************************************
+    *
+    * Method name: checkPowerOf2
+    *
+    * Description of the Method: This method checks if the values are powers of two.
+    *
+    * Calling arguments: 
+    *   int, number1, the number of rows.
+    *   int, number2, the number of columns.    
+    *
+    * Return value: 
+    *   boolean, res, if it's false there are not powers of two.
+    *
+    *********************************************************************/
+    
     public static boolean checkPowerOf2(int number1, int number2){
         int [] powersOf2={1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048};
         boolean number1PowerOf2=false;
