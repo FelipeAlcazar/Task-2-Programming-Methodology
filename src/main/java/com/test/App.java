@@ -53,6 +53,7 @@ public class App
        //quadtree(matrix, root, -1, nodeStyle);
 
        System.out.print("The resultant tree in one line is: \n"+tree.toString());
+       System.out.println("The total time in nano seconds is: "+ time+" ns");
     }
       
     public static long checkTimeNano (Short[][] matrix, NodeGenTree<String> root, int depth, String nodeStyle){
