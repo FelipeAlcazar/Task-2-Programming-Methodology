@@ -103,6 +103,20 @@ public class NodeGenTree<T> {
     return el.equals(((NodeGenTree<T>) n).getElement());
   }
 
+   /*********************************************************************
+    *
+    * Method name: printNode
+    *
+    * Description of the Method: We print the tree and depending on whether it is a child or not, 
+    * a blank space is added.
+    *
+    * Calling arguments: 
+    *   int, depth, is the depth of the tree to be able to print it.
+    *
+    * Return value: it type, and a brief explanation of what it does.
+    *
+    *********************************************************************/
+  
   public void printNode(int depth) {
     while(depth>0){
       System.out.print("  ");
