@@ -29,7 +29,7 @@ public class App
        String nodeStyle="O";
        NodeGenTree root=new NodeGenTree<>(nodeStyle);
        tree.addRoot(root);
-
+       long time= checkTimeNano(matrix, root, -1, nodeStyle);
        /** 
         * Example indexing
        //P1
@@ -50,11 +50,18 @@ public class App
        //Short color2='b';
        //quadtree(generateRandomMatrix(8,8,color1,color2), root);
        
-       quadtree(matrix, root, -1, nodeStyle);
+       //quadtree(matrix, root, -1, nodeStyle);
 
        System.out.print("The resultant tree in one line is: \n"+tree.toString());
     }
-       
+      
+    public static long checkTimeNano (Short[][] matrix, NodeGenTree<String> root, int depth, String nodeStyle){
+        long nano =System.nanoTime();
+        quadtree(matrix, root, depth, nodeStyle);
+        long totaltime=System.nanoTime()-nano;
+
+        return totaltime;
+    }
 
 
     public static void quadtree(Short[][] matrix, NodeGenTree<String> root, int depth, String nodeStyle) {
