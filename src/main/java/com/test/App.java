@@ -48,9 +48,9 @@ public class App
        //Example random matrix
        //Short color1='w';
        //Short color2='b';
-       //quadtree(generateRandomMatrix(8,8,color1,color2), root);
+       //long time= checkTimeNano(generateRandomMatrix(8,8,color1,color2), root,-1, nodeStyle);
        
-       //quadtree(matrix, root, -1, nodeStyle);
+       //long time=checkTimeNano(matrix, root, -1, nodeStyle);
 
        System.out.print("The resultant tree in one line is: \n"+tree.toString());
        System.out.println("The total time in nano seconds is: "+ time+" ns");
