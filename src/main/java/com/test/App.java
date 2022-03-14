@@ -8,7 +8,7 @@ import java.util.Scanner;
 /*********************************************************************
 *
 * Class Name: App
-* Author/s name:
+* Author/s name: Felipe Alcázar Gómez and Elena Megía
 * Release/Creation date:
 * Class description: In this class we have the entire program, what we do is take a randon array with black and white values,
 * we have to make a quad tree method to compress the sized for representing the image in a tree.
@@ -34,46 +34,23 @@ public class App
     
     public static void main(String[] args) throws Exception
     {
-      /* Short matrix[][]={
-           {'w','w','w','w','b','b','w','w'},
-           {'w','w','w','w','b','b','w','w'},
-           {'w','w','b','b','b','b','w','w'},
-           {'w','w','b','b','b','b','w','w'},
-           {'b','b','b','b','b','b','w','w'},
-           {'b','b','b','b','w','w','w','w'},
-           {'w','w','w','w','w','w','w','w'},
-           {'w','w','w','w','w','w','w','w'}
-       };*/
-
+       //Node style, used for the root of the matrixes (can be changed in future versions of the program)
        String nodeStyle="O";
        NodeGenTree root=new NodeGenTree<>(nodeStyle);
        tree.addRoot(root);
-       //long time= checkTimeNano(matrix, root, -1, nodeStyle);
-       /** 
-        * Example indexing
-       //P1
-       printMatrixIndexed(matrix, 0, 0, 4, 4);
-       System.out.println();
-       //P2
-       printMatrixIndexed(matrix, 0, 4, 4, 8);
-       System.out.println();
-       //P3
-       //printMatrixIndexed(matrix, 4, 0, 8, 4);
-       System.out.println();
-       //P4
-       printMatrixIndexed(matrix, 4, 4, 8, 8);
-       */
-        System.out.println("Welcome to the program.");
-       System.out.println("Choose the dimension of the matrix, the numbers, enter the number of total rows and columns :");
-       int number1=Numbers();
-       Example random matrix
-       Short color1='w';
-       Short color2='b';
-       long time= checkTimeNano(generateRandomMatrix(number,number,color1,color2), root,-1, nodeStyle);
-       
-       //long time=checkTimeNano(matrix, root, -1, nodeStyle);
 
-       System.out.print("The resultant tree in one line is: \n"+tree.toString());
+       //long time= checkTimeNano(matrix, root, -1, nodeStyle);
+       System.out.println("Welcome to the program.");
+       System.out.println("Choose the dimension of the matrix (Note: only powers of 2 allowed. Ex: 8): ");
+       int number1=Numbers();
+       
+       //Colors used. Can be easily changed in future versions of the program
+       Short color1='w'; // w for white color
+       Short color2='b'; // b for black color
+       long time= checkTimeNano(generateRandomMatrix(number1,number1,color1,color2), root,-1, nodeStyle);
+
+       //Data print
+       System.out.println("The resultant tree in one line is: \n"+tree.toString());
        System.out.println("The total time in nano seconds is: "+ time+" ns");
     }
     
@@ -93,11 +70,12 @@ public class App
             number=sc.nextInt();
             power2=checkPowerOf2(number, number);
             while (power2==false) {
-                System.out.print("Introduce a number multiple of 2.");
+                System.out.println("Error: The matrix size must be power of 2 or the value indicated is too big (max. value allowed is 1024). Try Again.");
+                System.out.print("Introduce a number multiple of 2: ");
                 number = sc.nextInt();
                 power2=checkPowerOf2(number, number);
-                }
-                return number;
+            }
+            return number;
         }
     
     /*********************************************************************
@@ -119,6 +97,8 @@ public class App
     *********************************************************************/
     
     public static long checkTimeNano (Short[][] matrix, NodeGenTree<String> root, int depth, String nodeStyle){
+        printMatrix(matrix);
+        System.out.println("Structured tree created:");
         long nano =System.nanoTime();
         quadtree(matrix, root, depth, nodeStyle);
         long totaltime=System.nanoTime()-nano;
@@ -131,11 +111,11 @@ public class App
     * Method name: quadtree
     *
     * Description of the Method: in this method we check if the matrix has the same color and if not, 
-    * it is divided into four parts until it is the same color .
+    * it is divided into four parts until it is the same color. Goal: compress an image
     *
     * Calling arguments: 
     *   Short[][], matrix, the matrix with the black and white values.
-    *   NodeGenTree<String>, root, the node of the tree.
+    *   NodeGenTree<String>, root, the root node of the tree.
     *   int, depth, the depth of the node
     *   String, nodeStyle, the type of the node.
     *
@@ -254,7 +234,7 @@ public class App
     *
     * Method name: printMatrix
     *
-    * Description of the Method: This method print the matrix.
+    * Description of the Method: This method prints the matrix.
     *
     * Calling arguments: 
     *   Short[][], matrix, i'ts a two dimensional array. 
@@ -262,9 +242,10 @@ public class App
     *********************************************************************/
     
     public static void printMatrix(Short matrix[][]){
+        System.out.println("Random array generated:");
         for (int i=0; i<matrix.length; i++){
             for(int j=0; j<matrix[i].length; j++){
-                System.out.print(matrix[i][j]);
+                System.out.print(Character.toString(matrix[i][j]));
             }
             System.out.println();
         }
@@ -320,7 +301,7 @@ public class App
     *********************************************************************/
     
     public static boolean checkPowerOf2(int number1, int number2){
-        int [] powersOf2={1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048};
+        int [] powersOf2={1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024};
         boolean number1PowerOf2=false;
         boolean number2PowerOf2=false;
 
