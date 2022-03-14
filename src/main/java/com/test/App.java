@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
-
+import java.util.Scanner;
 /*********************************************************************
 *
 * Class Name: App
@@ -20,7 +20,7 @@ import java.util.Vector;
 public class App 
 {
     static GenTree tree=new GenTree<>();
-    
+    final static Scanner sc = new Scanner(System.in);
     /*********************************************************************
     *
     * Method name: Main
@@ -34,7 +34,7 @@ public class App
     
     public static void main(String[] args) throws Exception
     {
-       Short matrix[][]={
+      /* Short matrix[][]={
            {'w','w','w','w','b','b','w','w'},
            {'w','w','w','w','b','b','w','w'},
            {'w','w','b','b','b','b','w','w'},
@@ -43,12 +43,12 @@ public class App
            {'b','b','b','b','w','w','w','w'},
            {'w','w','w','w','w','w','w','w'},
            {'w','w','w','w','w','w','w','w'}
-       };
+       };*/
 
        String nodeStyle="O";
        NodeGenTree root=new NodeGenTree<>(nodeStyle);
        tree.addRoot(root);
-       long time= checkTimeNano(matrix, root, -1, nodeStyle);
+       //long time= checkTimeNano(matrix, root, -1, nodeStyle);
        /** 
         * Example indexing
        //P1
@@ -63,18 +63,43 @@ public class App
        //P4
        printMatrixIndexed(matrix, 4, 4, 8, 8);
        */
-
-       //Example random matrix
-       //Short color1='w';
-       //Short color2='b';
-       //long time= checkTimeNano(generateRandomMatrix(8,8,color1,color2), root,-1, nodeStyle);
+        System.out.println("Welcome to the program.");
+       System.out.println("Choose the dimension of the matrix, the numbers, enter the number of total rows and columns :");
+       int number1=Numbers();
+       Example random matrix
+       Short color1='w';
+       Short color2='b';
+       long time= checkTimeNano(generateRandomMatrix(number,number,color1,color2), root,-1, nodeStyle);
        
        //long time=checkTimeNano(matrix, root, -1, nodeStyle);
 
        System.out.print("The resultant tree in one line is: \n"+tree.toString());
        System.out.println("The total time in nano seconds is: "+ time+" ns");
     }
-      
+    
+    /*********************************************************************
+    *
+    * Method name: Numbers
+    *
+    * Description of the Method: This method checks if the entered number is a multiple of 2.
+    *
+    * Return value: 
+    *   int, number, the total time it takes for the process to run.
+    *
+    *********************************************************************/
+      public static int Numbers(){
+            int number=0;
+            boolean power2=false;
+            number=sc.nextInt();
+            power2=checkPowerOf2(number, number);
+            while (power2==false) {
+                System.out.print("Introduce a number multiple of 2.");
+                number = sc.nextInt();
+                power2=checkPowerOf2(number, number);
+                }
+                return number;
+        }
+    
     /*********************************************************************
     *
     * Method name: checkTimeNano
