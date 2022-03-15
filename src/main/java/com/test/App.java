@@ -8,8 +8,7 @@ import java.util.Scanner;
 /*********************************************************************
 *
 * Class Name: App
-* Author/s name: Felipe Alcázar Gómez and Elena Megía
-* Release/Creation date:
+* Author/s name: Felipe Alcázar Gómez and Elena Megía Cañaveras
 * Class description: In this class we have the entire program, what we do is take a randon array with black and white values,
 * we have to make a quad tree method to compress the sized for representing the image in a tree.
 * 
