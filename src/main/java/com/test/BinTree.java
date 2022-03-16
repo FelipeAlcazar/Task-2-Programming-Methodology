@@ -48,6 +48,7 @@ public class BinTree<T> implements BinTreeInterface<T> {
    * Constructor (the root is created)
    * @param n The node used as root
    */
+  
   public BinTree(NodeBinTree<T> n){
     root = n;
     size = 1;
@@ -125,10 +126,6 @@ public class BinTree<T> implements BinTreeInterface<T> {
               ProblemInTreeException {
     addRight(n1.getElement(), n2.getElement());
   }
-
-
-
-// Accessor functions ********************************************************
 
 
   // Returns the node containing the element elem
