@@ -39,8 +39,8 @@ public class App
        tree.addRoot(root);
 
        //long time= checkTimeNano(matrix, root, -1, nodeStyle);
-       System.out.println("Welcome to the program.");
-       System.out.println("Choose the dimension of the matrix (Note: only powers of 2 allowed. Ex: 8): ");
+       System.out.println("Welcome to the program.\nThis program has the goal to compress an image made of 2 colors. In order for our image (which will be randomly generated) to get a smaller size,\nit will be divided into 4 parts until we get a zone of the same color. If this happens, that part of the image becomes a node of our tree of images.\nThis will be the process until the image has been fully examined.\n");
+       System.out.println("Choose the dimension of the image/matrix (Note: only powers of 2 allowed. Ex: 8, 4, 16...): ");
        int number1=Numbers();
        
        //Colors used. Can be easily changed in future versions of the program
@@ -51,6 +51,7 @@ public class App
        //Data print
        System.out.println("The resultant tree in one line is: \n"+tree.toString());
        System.out.println("The total time in nano seconds is: "+ time+" ns");
+       System.out.println("\nSuccess! All the results have been shown.");
     }
     
     /*********************************************************************
